@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, a {
+    font: 14px/24px "Microsoft YaHei", tahoma;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#web-title {
+    font-size: 30px;
+    line-height: 2em;
+}
+
+#nav {
+    height: 50px;
+    background-color: #2EA5ED;
+}
+
+#nav a {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    color: #FFF;
+    padding: 0 30px;
+}
+
+#nav a:hover {
+    background-color: rgba(255, 255, 255, .5);
+}
+
+#nav a.active {
+    color: #FFFC00;
+}
+
+.note-list {
+    margin: 20px auto;
+}
+
+.note-list dt {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.note-list dt span {
+    color: #888;
+    font-size: 14px;
+}
+
+.note-list dd {
+    margin-bottom: 50px;
+}
+
+.note-list dd .edit-delete-btn a {
+    color: #006EFF;
+}
+
+.form {
+    width: 50%;
+    margin-top: 20px;
+}
+
+.form div {
+    margin: 10px 0;
+}
+
+.form label {
+    width: 100px;
+    display: inline-block;
+    float: left;
+}
+
+.form input[name=title] {
+    padding: 8px;
+    width: 800px;
+}
+
+.form textarea[name=content] {
+    padding: 8px;
+    width: 800px;
+    height: 600px;
+}
+
+.form-btn {
+    background-color: #F00;
+    border: 0;
+    cursor: pointer;
+    color: #FFF;
+    width: 30%;
+    font: 20px/40px "Microsoft YaHei", tahoma;
+    margin-left: 100px;
+}
+
+.success, .error {
+    margin-top: 30px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 50px 200px;
+    font-size: 30px;
+}
+
+.success p, .error p {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.success a, .error a {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.error {
+    border-color: #F00;
+    background-color: #FFDBDB;
+    color: #F00;
+}
+
+.success {
+    border-color: #2DFF00;
+    background-color: #CBFFCC;
+    color: #2FCF0D;
+}
+
+.page a {
+    padding: 5px 10px;
+    display: inline-block;
+    border: 1px solid #F00;
+    margin: 5px;
+}
+
+.page .active {
+    background: #F00;
+    color: #fff;
+}

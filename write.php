@@ -1,0 +1,9 @@
+<?php
+session_start();
+if(!isset($_SESSION['id'])){
+    $info='必须先登录！';
+    include('html/error.html');
+    exit;
+}else{
+    include('html/add.html');
+}

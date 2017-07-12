@@ -1,0 +1,36 @@
+<?php
+session_start();
+if(!isset($_SESSION['id'])){
+    $info='必须先登录！';
+    include('html/error.html');
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>微博</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="html/css.css">
+</head>
+<body>
+	<h1 id="web-title" class="container">编辑中 - 微博</h1>
+	<div id="nav">
+		<div class="container">
+			<a href="../index.php">微博列表</a>
+			<a href="add.html" class="active">写微博</a>
+		</div>
+	</div>
+	<form method="post" action="add.php" class="container form">
+		<div>
+			<label>标 题</label>
+			<input type="text" name="title">
+		</div>
+		<div>
+			<label>内 容</label>
+			<textarea name="content"></textarea>
+		</div>
+		<input class="form-btn" type="submit" value="发表">
+	</form>
+</body>
+</html>

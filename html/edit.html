@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>微博</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="html/css.css">
+</head>
+<body>
+	<h1 id="web-title" class="container">修改中 - 微博</h1>
+	<?php include('nav.html'); ?>
+	<form method="post" action="doedit.php" class="container form">
+		<input type="hidden" name="id" value="<?=$_GET['id']?>">
+		<div>
+			<label>标 题</label>
+			<input type="text" name="title" value="<?=$data['title']?>">
+		</div>
+		<div>
+			<label>内 容</label>
+			<textarea name="content"><?=$data['content']?></textarea>
+		</div>
+		<input class="form-btn" type="submit" value="发表">
+	</form>
+</body>
+</html>

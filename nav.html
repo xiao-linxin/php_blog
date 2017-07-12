@@ -1,0 +1,20 @@
+<?php
+//从访问的脚本中截取出文件名
+$fileName = strrchr($_SERVER['SCRIPT_NAME'],'/');
+$fileName = ltrim($filename);
+$fileName = str_replace('.php','',$filename);
+//var_dump($fileName);
+?>
+<div id="nav">
+    <div class="container">
+        <a href="index.php" <?php if($fileName=='index') echo 'class="active"'; ?>>微博列表</a>
+        <a href="write.php" <?php if($fileName=='write') echo 'class="active"'; ?>>写微博</a>
+        <?php if(isset($_SESSION['id'])): ?>
+            <?=$_SESSION['username'] ?>
+            <a href="logout.php">退出</a>
+        <?php else: ?>
+            <a href="reg_form.php" <?php if($fileName=='reg_form') echo 'class="active"'; ?>>注册</a>
+            <a href="login_form.php" <?php if($fileName=='login_form') echo 'class="active"'; ?>>登录</a>
+        <?php endif; ?>
+    </div>
+</div>

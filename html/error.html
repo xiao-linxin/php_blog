@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>微博</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="html/css.css">
+</head>
+<body>
+	<h1 id="web-title" class="container">微博</h1>
+	<?php include('nav.html'); ?>
+	<div class="container error">
+		<?=$info?>
+		<p><span id="s">3</span>秒之后自动跳转,点击<a href="javascript:history.back();">立即跳转</a>
+	</div>
+</body>
+</html>
+<script>
+    var s = document.getElementById('s');
+    var next = 2;
+    //1秒之后开始定期执行
+    setInterval(function () {
+        s.innerHTML = next;
+        next--;
+        if (next < 0) {
+            //返回上一个页面
+            history.back();
+        }
+    }, 1000);
+</script>

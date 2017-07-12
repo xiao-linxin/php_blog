@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>微博</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="html/css.css">
+    <script src="html/jquery.js"></script>
+    <style>
+        .loadmore {
+            width: 100%;
+            display: inline-block;
+            background: #7DCEFF;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1 id="web-title" class="container">微博</h1>
+<!--搜索-->
+<form id="search-form" method="GET" action="index.php">
+    标 题：<input value="<?=isset($_GET['t']) ? $_GET['t']:'';?>" type="text" name="t">
+    开始时间：<input value="<?=isset($_GET['st']) ? $_GET['st']:'';?>" type="text" name="st">
+    结束时间：<input value="<?=isset($_GET['et']) ? $_GET['et']:'';?>" type="text" name="et">
+    <input type="submit" value="搜索">
+    <?php
+		//按接受排序字段,默认是根据时间降序
+		$od = isset($_GET['od']) ? $_GET['od'] : 'time_desc'; ?>
+    <p>
+        标题排序：
+        <input <?php if($od == 'title_asc') echo 'checked'; ?>
+        onclick="document.getElementById('search-form').submit();" type="radio" name="od" value="title_asc"> 升序
+        <input <?php if($od == 'title_desc') echo 'checked'; ?>
+        onclick="document.getElementById('search-form').submit();" type="radio" name="od" value="title_desc"> 降序
+    </p>
+    <p>
+        时间排序：
+        <input <?php if($od == 'time_asc') echo 'checked'; ?> onclick="document.getElementById('search-form').submit();"
+        type="radio" name="od" value="time_asc"> 升序
+        <input <?php if($od == 'time_desc') echo 'checked'; ?>
+        onclick="document.getElementById('search-form').submit();" type="radio" name="od" value="time_desc"> 降序
+    </p>
+</form>
+<?php include('nav.html'); ?>
+<dl class="container note-list">
+    <?php foreach($data as $k => $v): ?>
+    <dt> <?=$v['title']?>
+    <p><span>发表于：<?=$v['addtime']?></span></p>
+    <p>
+        <img style="width:50px;height:50px;border-radius:25px;" src="<?=$v['face']==''?'img/face.jpg':$v['face'];?>"
+             alt="">
+        <span style="position:relative;top:-18px;left:10px">作者：<?=$v['username']?></span>
+    </p>
+    </dt>
+    <dd>
+        <?=$v['content']?>
+        <?php if(isset($_SESSION['id']) && $v['member_id'] == $_SESSION['id']): ?>
+        <p class="edit-delete-btn">
+            <a href="edit.php?id=<?=$v['id']?>">修改</a> ---
+            <a onclick="return confirm('确定要删除吗？');" href="delete.php?id=<?=$v['id']?>">删除</a>
+        </p>
+        <?php endif; ?>
+    </dd>
+    <?php endforeach; ?>
+</dl>
+<div class="container"><a class="loadmore" href="">加载更多</a></div>
+</body>
+</html>
+<script>
+    var next = 2; //点击时取哪一页数据
+    $(".loadmore").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "ajaxgetblog.php?p=" + next++,
+            //说明服务器返回数据的格式Jq会接受到数据之后中转化成js里面可能
+            dataType: "json",
+            //服务器返回的数据
+            success: function (data) {
+                var html = "";
+                //相对于PHP中的foreach($data as $k => $v)
+                //把服务器返回的日志显示在页面中
+                $(data).each(function (k, v) {
+                    html += '<dt>' + v.title + '<p><span>发表于：' + v.addtime + '</span></p> <p> <img style="width:50px;height:50px;border-radius:25px;" src="' + v.face + '"> <span style="position:relative;top:-18px;left:10px">作者：' + v.username + '</span></p></dt><dd> ' + v.content + ' <p class="edit-delete-btn"> <a href="edit.php?id=' + v.id + '">修改</a> --- <a onclick="return confirm(\'确定要删除吗？\');" href="delete.php?id=' + v.id + '">删除</a></p></dd>';
+                });
+                //字符串转换成Jq的对象
+                html = $(html);
+                //现在就可以调用JQ中的方法
+                html.hide();
+                //把拼好的HTML放到页面中
+                $(".note-list").append(html);
+                //淡入
+                html.fadeIn(2500);
+            }
+        });
+        return false;
+    });
+</script>
